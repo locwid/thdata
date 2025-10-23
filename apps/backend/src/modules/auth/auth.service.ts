@@ -1,9 +1,9 @@
 import Elysia from "elysia";
-import { UsersService, usersService, ZUserDto } from "@/modules/users";
+import { UsersService, usersService, TUserDto } from "@/modules/users";
 import { Database } from "@/db";
-import { ZSignInDto, ZSignUpDto } from "./auth.dto";
+import { TSignInDto, TSignUpDto } from "./auth.dto";
 import { createId } from "@/lib/createId";
-import { sessionsService, SessionsService, ZSessionDto } from "../sessions";
+import { sessionsService, SessionsService, TSessionDto } from "../sessions";
 import { verifyPassword } from "@/lib/password";
 
 class AuthService {
@@ -14,8 +14,8 @@ class AuthService {
 
   async signUp(
     db: Database,
-    dto: ZSignUpDto,
-  ): Promise<{ user: ZUserDto; session: ZSessionDto } | null> {
+    dto: TSignUpDto,
+  ): Promise<{ user: TUserDto; session: TSessionDto } | null> {
     const existingUser = await this.users.findByEmail(db, dto.email);
     if (!existingUser) {
       return null;
@@ -37,8 +37,8 @@ class AuthService {
 
   async signIn(
     db: Database,
-    dto: ZSignInDto,
-  ): Promise<{ user: ZUserDto; session: ZSessionDto } | null> {
+    dto: TSignInDto,
+  ): Promise<{ user: TUserDto; session: TSessionDto } | null> {
     const user = await this.users.findByEmail(db, dto.email);
     if (!user || !verifyPassword(dto.password, user.password)) {
       return null;
@@ -54,14 +54,14 @@ class AuthService {
     return this.sessions.deleteByToken(db, token);
   }
 
-  getProfile(db: Database, token: string): Promise<ZUserDto | null> {
+  getProfile(db: Database, token: string): Promise<TUserDto | null> {
     return this.sessions.getUserByToken(db, token);
   }
 
   async validateSession(
     db: Database,
     token: string,
-  ): Promise<ZSessionDto | null> {
+  ): Promise<TSessionDto | null> {
     const session = await this.sessions.findByToken(db, token);
     if (!session) {
       return null;

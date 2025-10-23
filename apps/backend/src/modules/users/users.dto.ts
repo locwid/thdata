@@ -1,21 +1,27 @@
-import * as z from "zod/v4";
+import { t } from "elysia";
 
-export const zUserDto = z.object({
-  id: z.string(),
-  email: z.email(),
-  password: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+export const tUserDto = t.Object({
+  id: t.String(),
+  email: t.String({ format: "email" }),
+  password: t.String(),
+  createdAt: t.Date(),
+  updatedAt: t.Date(),
 });
 
-export const zCreateUserDto = z.object({
-  id: z.string().optional(),
-  email: z.email(),
-  password: z.string().min(6),
+export const tCreateUserDto = t.Object({
+  id: t.Optional(t.String()),
+  email: t.String({ format: "email" }),
+  password: t.String({ minLength: 6 }),
 });
 
-export const zUserResponseDto = zUserDto.omit({ password: true });
+export const tUserResponseDto = t.Composite([
+  t.Omit(tUserDto, ["password", "createdAt", "updatedAt"]),
+  t.Object({
+    createdAt: t.String({ format: "date-time" }),
+    updatedAt: t.String({ format: "date-time" }),
+  }),
+]);
 
-export type ZUserDto = z.infer<typeof zUserDto>;
-export type ZCreateUserDto = z.infer<typeof zCreateUserDto>;
-export type ZUserResponseDto = z.infer<typeof zUserResponseDto>;
+export type TUserDto = typeof tUserDto.static;
+export type TCreateUserDto = typeof tCreateUserDto.static;
+export type TUserResponseDto = typeof tUserResponseDto.static;

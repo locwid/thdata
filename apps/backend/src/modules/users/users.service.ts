@@ -1,15 +1,15 @@
 import { Database, tables } from "@/db";
 import Elysia from "elysia";
-import { ZCreateUserDto, ZUserDto } from "./users.dto";
+import { TCreateUserDto, TUserDto } from "./users.dto";
 import { eq } from "drizzle-orm";
 
 export class UsersService {
-  async create(db: Database, data: ZCreateUserDto): Promise<ZUserDto> {
+  async create(db: Database, data: TCreateUserDto): Promise<TUserDto> {
     const [user] = await db.insert(tables.users).values(data).returning();
     return user;
   }
 
-  async findByEmail(db: Database, email: string): Promise<ZUserDto | null> {
+  async findByEmail(db: Database, email: string): Promise<TUserDto | null> {
     const [user] = await db
       .select()
       .from(tables.users)
@@ -17,7 +17,7 @@ export class UsersService {
     return user ?? null;
   }
 
-  async findById(db: Database, id: string): Promise<ZUserDto | null> {
+  async findById(db: Database, id: string): Promise<TUserDto | null> {
     const [user] = await db
       .select()
       .from(tables.users)

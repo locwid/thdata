@@ -1,5 +1,5 @@
-import * as z from "zod/v4";
+import { t } from "elysia";
 
-export const zErrorDto = z.object({
-  message: z.string(),
+export const tErrorDto = t.Object({
+  message: t.String(),
 });

@@ -1,14 +1,15 @@
-import * as z from "zod/v4";
+import { t } from "elysia";
+import { Value } from "@sinclair/typebox/value";
 
-const zConfig = z.object({
-  databaseUrl: z.string(),
-  admin: z.object({
-    email: z.email(),
-    password: z.string(),
+const tConfig = t.Object({
+  databaseUrl: t.String(),
+  admin: t.Object({
+    email: t.String({ format: "email" }),
+    password: t.String({ minLength: 8 }),
   }),
 });
 
-export const config = zConfig.parse({
+export const config = Value.Parse(tConfig, {
   databaseUrl: process.env.DATABASE_URL,
   admin: {
     email: process.env.ADMIN_EMAIL,

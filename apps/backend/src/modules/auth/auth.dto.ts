@@ -1,15 +1,14 @@
-import Elysia from "elysia";
-import * as z from "zod/v4";
+import { t } from "elysia";
 
-export const zSignInDto = z.object({
-  email: z.email(),
-  password: z.string().min(6),
+export const tSignInDto = t.Object({
+  email: t.String({ format: "email" }),
+  password: t.String({ minLength: 6 }),
 });
 
-export const zSignUpDto = z.object({
-  email: z.email(),
-  password: z.string().min(6),
+export const tSignUpDto = t.Object({
+  email: t.String({ format: "email" }),
+  password: t.String({ minLength: 6 }),
 });
 
-export type ZSignInDto = z.infer<typeof zSignInDto>;
-export type ZSignUpDto = z.infer<typeof zSignUpDto>;
+export type TSignInDto = typeof tSignInDto.static;
+export type TSignUpDto = typeof tSignUpDto.static;

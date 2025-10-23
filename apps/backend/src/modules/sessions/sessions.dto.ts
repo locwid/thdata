@@ -1,21 +1,21 @@
-import * as z from "zod/v4";
+import { t } from "elysia";
 
-export const zSessionDto = z.object({
-  id: z.string(),
-  userId: z.string(),
-  token: z.string(),
-  expiresAt: z.date(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+export const tSessionDto = t.Object({
+  id: t.String(),
+  userId: t.String(),
+  token: t.String(),
+  expiresAt: t.Date(),
+  createdAt: t.Date(),
+  updatedAt: t.Date(),
 });
 
-export const zCreateSessionDto = z.object({
-  userId: z.string(),
+export const tCreateSessionDto = t.Object({
+  userId: t.String(),
 });
 
-export const zSessionCookieDto = z.object({
-  session: z.string(),
+export const tSessionCookieDto = t.Object({
+  session: t.String(),
 });
 
-export type ZSessionDto = z.infer<typeof zSessionDto>;
-export type ZCreateSessionDto = z.infer<typeof zCreateSessionDto>;
+export type TSessionDto = typeof tSessionDto.static;
+export type TCreateSessionDto = typeof tCreateSessionDto.static;

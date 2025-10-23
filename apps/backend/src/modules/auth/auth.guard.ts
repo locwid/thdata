@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import { zSessionCookieDto } from "../sessions";
+import { tSessionCookieDto } from "../sessions";
 import { dbProvider } from "@/db";
 import { authService } from "./auth.service";
 
@@ -12,7 +12,7 @@ export const authSessionRequired = new Elysia({
   .use(dbProvider)
   .use(authService)
   .guard({
-    cookie: zSessionCookieDto,
+    cookie: tSessionCookieDto,
     detail: {
       description: "Requires a valid session cookie",
     },

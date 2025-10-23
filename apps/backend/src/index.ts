@@ -3,7 +3,6 @@ import { automigrate } from "./db/automigrate";
 import openapi from "@elysiajs/openapi";
 import { authController } from "@/modules/auth";
 import { usersController } from "./modules/users";
-import * as z from "zod/v4";
 
 await automigrate();
 
@@ -14,9 +13,6 @@ const apiV1 = new Elysia({ prefix: "/api/v1" })
 export const app = new Elysia()
   .use(
     openapi({
-      mapJsonSchema: {
-        zod: z.toJSONSchema,
-      },
       provider: "scalar",
       documentation: {
         info: {

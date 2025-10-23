@@ -2,9 +2,9 @@ import Elysia from "elysia";
 import { authSessionRequired } from "../auth/auth.guard";
 import { usersService } from "./users.service";
 import { dbProvider } from "@/db";
-import { zUserResponseDto } from "./users.dto";
+import { tUserResponseDto } from "./users.dto";
 import { toUserResponseDto } from "./users.helpers";
-import { zErrorDto } from "@/lib/error";
+import { tErrorDto } from "@/lib/error";
 
 export const usersController = new Elysia({
   name: "users.controller",
@@ -28,8 +28,8 @@ export const usersController = new Elysia({
     },
     {
       response: {
-        200: zUserResponseDto,
-        401: zErrorDto,
+        200: tUserResponseDto,
+        401: tErrorDto,
       },
       isAuthorized: true,
     },

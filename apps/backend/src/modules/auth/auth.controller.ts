@@ -1,10 +1,9 @@
-import Elysia from "elysia";
-import { zSignInDto, zSignUpDto } from "./auth.dto";
-import { toUserResponseDto, zUserResponseDto } from "../users";
+import Elysia, { t } from "elysia";
+import { tSignInDto, tSignUpDto } from "./auth.dto";
+import { toUserResponseDto, tUserResponseDto } from "../users";
 import { authService } from "./auth.service";
 import { dbProvider } from "@/db";
-import { zErrorDto } from "@/lib/error";
-import * as z from "zod/v4";
+import { tErrorDto } from "@/lib/error";
 import { authSessionRequired } from "./auth.guard";
 
 export const authController = new Elysia({
@@ -34,10 +33,10 @@ export const authController = new Elysia({
       return toUserResponseDto(data.user);
     },
     {
-      body: zSignUpDto,
+      body: tSignUpDto,
       response: {
-        200: zUserResponseDto,
-        401: zErrorDto,
+        200: tUserResponseDto,
+        401: tErrorDto,
       },
     },
   )
@@ -60,10 +59,10 @@ export const authController = new Elysia({
       return toUserResponseDto(data.user);
     },
     {
-      body: zSignInDto,
+      body: tSignInDto,
       response: {
-        201: zUserResponseDto,
-        401: zErrorDto,
+        201: tUserResponseDto,
+        401: tErrorDto,
       },
     },
   )
@@ -76,8 +75,8 @@ export const authController = new Elysia({
     },
     {
       response: {
-        200: z.object({
-          result: z.boolean(),
+        200: t.Object({
+          result: t.Boolean(),
         }),
       },
       isAuthorized: true,
