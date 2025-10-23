@@ -1,0 +1,12 @@
+{
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun --env-file=.env --elide-lines=0 --filter '*' dev",
+    "db:generate": "bun --env-file=.env --filter '@thdata/backend' db:generate"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
