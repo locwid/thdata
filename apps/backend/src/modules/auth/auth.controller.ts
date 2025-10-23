@@ -80,8 +80,5 @@ export const authController = new Elysia({
         }),
       },
       isAuthorized: true,
-      detail: {
-        security: [{ sessionCookie: [] }],
-      },
     },
   );

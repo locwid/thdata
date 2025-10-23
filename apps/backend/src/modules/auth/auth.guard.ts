@@ -5,16 +5,14 @@ import { authService } from "./auth.service";
 
 export const authSessionRequired = new Elysia({
   name: "auth.guard",
-  detail: {
-    security: [{ sessionCookie: [] }],
-  },
 })
   .use(dbProvider)
   .use(authService)
   .guard({
     cookie: tSessionCookieDto,
     detail: {
-      description: "Requires a valid session cookie",
+      description: "Require user to be logged in",
+      security: [{ sessionCookie: [] }],
     },
   })
   .macro({

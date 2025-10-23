@@ -13,7 +13,7 @@ const apiV1 = new Elysia({ prefix: "/api/v1" })
 export const app = new Elysia()
   .use(
     openapi({
-      provider: "scalar",
+      provider: "swagger-ui",
       documentation: {
         info: {
           title: "thdata API",
