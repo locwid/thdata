@@ -4,6 +4,7 @@
   ],
   "scripts": {
     "dev": "bun --env-file=.env --elide-lines=0 --filter '*' dev",
+    "typecheck": "bun --elide-lines=0 --filter '*' typecheck",
     "db:generate": "bun --env-file=.env --filter '@thdata/backend' db:generate"
   },
   "devDependencies": {
